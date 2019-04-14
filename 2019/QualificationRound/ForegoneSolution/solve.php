@@ -12,10 +12,18 @@ for ($a = 0; $a < $problem_count; $a++) {
 function solve($n) {
   $count = 0;
 
-  for ($a = 1; $a < $n; $a++) { 
-    $b = $n - $a;
-    if (strpos($a, '4') === false && strpos($b, '4') === false) {
-      return $a . " " . $b;
+  $arr = str_split($n);
+  $a = [];
+
+  for ($i = 0; $i < count($arr); $i++) { 
+    if ($arr[$i] === '4') {
+      $a[] = 1;
+    } else { 
+      $a[] = 0;
     }
   }
+  $a = intval(implode("", $a));
+  $b = $n - $a;
+
+  return $a . " " . $b;
 }
