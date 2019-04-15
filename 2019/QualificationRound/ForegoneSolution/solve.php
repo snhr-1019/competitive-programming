@@ -10,20 +10,22 @@ for ($a = 0; $a < $problem_count; $a++) {
 }
 
 function solve($n) {
-  $count = 0;
-
   $arr = str_split($n);
   $a = [];
-
+  $b = [];
   for ($i = 0; $i < count($arr); $i++) { 
     if ($arr[$i] === '4') {
       $a[] = 1;
+      $b[] = 3;
     } else { 
-      $a[] = 0;
+      if (count($a) > 0) {
+        $a[] = 0;
+      }
+      if (count($b) > 0 || $arr[$i] > 0) {
+        $b[] = $arr[$i];
+      }
     }
   }
-  $a = intval(implode("", $a));
-  $b = $n - $a;
 
-  return $a . " " . $b;
+  return implode("", $a) . " " . implode("", $b);
 }
