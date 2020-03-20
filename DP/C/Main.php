@@ -16,9 +16,11 @@ function dfs($d, $preChoice) {
 
     if ($d == $n) return 0;
 
-    if ($preChoice != 0) $chooseA = dfs($d+1, 0) + $a[$d];
-    if ($preChoice != 1) $chooseB = dfs($d+1, 0) + $b[$d];
-    if ($preChoice != 2) $chooseC = dfs($d+1, 0) + $c[$d];
+    if (isset($dp[$d][$preChoice])) return $dp[$d][$preChoice];
 
-    return max([$chooseA, $chooseB, $chooseC]);
+    if ($preChoice != 0) $chooseA = dfs($d+1, 0) + $a[$d];
+    if ($preChoice != 1) $chooseB = dfs($d+1, 1) + $b[$d];
+    if ($preChoice != 2) $chooseC = dfs($d+1, 2) + $c[$d];
+
+    return $dp[$d][$preChoice] = max([$chooseA, $chooseB, $chooseC]);
 }
