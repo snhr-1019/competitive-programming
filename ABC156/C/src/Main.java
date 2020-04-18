@@ -12,16 +12,16 @@ class Main {
         int n = sc.nextInt();
         int l = Integer.MAX_VALUE;
         int r = Integer.MIN_VALUE;
-        int[] x = new int[n];
+        List<Integer> list = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            x[i] = sc.nextInt();
-            l = Math.min(l, x[i]);
-            r = Math.max(r, x[i]);
+            list.add(sc.nextInt());
+            l = Math.min(l, list.get(i));
+            r = Math.max(r, list.get(i));
         }
 
         int minCost = Integer.MAX_VALUE;
-        for (int i = l; i <= r; i++) {
-            int cost = calc(i, x);
+        for (int p = l; p <= r; p++) {
+            int cost = calc(p, list);
             if (cost < minCost) {
                 minCost = cost;
             }
@@ -29,10 +29,11 @@ class Main {
         System.out.println(minCost);
     }
 
-    private int calc(int i, int[] x) {
+    private int calc(int p, List<Integer> list) {
         int cost = 0;
+        list.stream().reduce((sum, i) -> { sum + i }).get();
         for (int j = 0; j < x.length; j++) {
-            cost += Math.pow(x[j] - i, 2);
+            cost += Math.pow(x[j] - p, 2);
         }
         return cost;
     }
