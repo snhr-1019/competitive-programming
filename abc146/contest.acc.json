@@ -42,34 +42,19 @@
       "id": "abc146_d",
       "label": "D",
       "title": "Coloring Edges on Tree",
-      "url": "https://atcoder.jp/contests/abc146/tasks/abc146_d",
-      "directory": {
-        "path": "d",
-        "testdir": "tests",
-        "submit": "Main.java"
-      }
+      "url": "https://atcoder.jp/contests/abc146/tasks/abc146_d"
     },
     {
       "id": "abc146_e",
       "label": "E",
       "title": "Rem of Sum is Num",
-      "url": "https://atcoder.jp/contests/abc146/tasks/abc146_e",
-      "directory": {
-        "path": "e",
-        "testdir": "tests",
-        "submit": "Main.java"
-      }
+      "url": "https://atcoder.jp/contests/abc146/tasks/abc146_e"
     },
     {
       "id": "abc146_f",
       "label": "F",
       "title": "Sugoroku",
-      "url": "https://atcoder.jp/contests/abc146/tasks/abc146_f",
-      "directory": {
-        "path": "f",
-        "testdir": "tests",
-        "submit": "Main.java"
-      }
+      "url": "https://atcoder.jp/contests/abc146/tasks/abc146_f"
     }
   ]
 }
