@@ -31,7 +31,12 @@
       "id": "abc145_c",
       "label": "C",
       "title": "Average Length",
-      "url": "https://atcoder.jp/contests/abc145/tasks/abc145_c"
+      "url": "https://atcoder.jp/contests/abc145/tasks/abc145_c",
+      "directory": {
+        "path": "c",
+        "testdir": "tests",
+        "submit": "Main.java"
+      }
     },
     {
       "id": "abc145_d",
