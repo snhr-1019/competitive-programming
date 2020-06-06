@@ -42,7 +42,12 @@
       "id": "abc140_d",
       "label": "D",
       "title": "Face Produces Unhappiness",
-      "url": "https://atcoder.jp/contests/abc140/tasks/abc140_d"
+      "url": "https://atcoder.jp/contests/abc140/tasks/abc140_d",
+      "directory": {
+        "path": "d",
+        "testdir": "tests",
+        "submit": "Main.java"
+      }
     },
     {
       "id": "abc140_e",
