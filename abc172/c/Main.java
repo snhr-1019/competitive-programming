@@ -9,46 +9,39 @@ class Main {
         new Main().run();
     }
 
-    int n;
-    int m;
-    int k;
-    int[] a;
-    int[] b;
-
     private void run() {
-        n = sc.nextInt();
-        m = sc.nextInt();
-        k = sc.nextInt();
-        a = new int[n+1];
-        b = new int[m+1];
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+        int k = sc.nextInt();
+        long[] a = new long[n+1];
+        long[] b = new long[m+1];
+        long[] aSum = new long[n+1];
+        long[] bSum = new long[m+1];
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 1; i <= n; i++) {
             a[i] = sc.nextInt();
+            aSum[i] = a[i] + aSum[i-1];
         }
 
-        for (int i = 0; i < m; i++) {
+        for (int i = 1; i <= m; i++) {
             b[i] = sc.nextInt();
+            bSum[i] += b[i] + bSum[i-1];
         }
 
-        System.out.println(dp(0, 0, k));
-    }
+        int ans = 0;
+        int bCount = m;
+        for (int aCount = 0; aCount <= n; aCount++) {
+            if (aSum[aCount] > k) {
+                continue;
+            }
 
-    /**
-     * @param i Aの机の一番上がi番目
-     * @param j Bの机の一番上がj番目
-     * @return 読めた本の最大冊数
-     */
-    private long dp(int i, int j, int l) {
-        if (i >= n || j >= m) {
-            return -1;
+            for (; bCount >= 0; bCount--) {
+                if (aSum[aCount] + bSum[bCount] <= k) {
+                    ans = max(ans, aCount + bCount);
+                    break;
+                }
+            }
         }
-
-        // これ以上本を読めないときはそこまでの冊数を返す
-        if (a[i] > l && b[j] > l) {
-            return i + j;
-        }
-
-        long ans = max(dp(i + 1, j, l - a[i]), dp(i, j + 1, l - b[j]));
-        return ans;
+        System.out.println(ans);
     }
 }
