@@ -9,13 +9,23 @@
       "id": "abc138_a",
       "label": "A",
       "title": "Red or Not",
-      "url": "https://atcoder.jp/contests/abc138/tasks/abc138_a"
+      "url": "https://atcoder.jp/contests/abc138/tasks/abc138_a",
+      "directory": {
+        "path": "a",
+        "testdir": "tests",
+        "submit": "Main.java"
+      }
     },
     {
       "id": "abc138_b",
       "label": "B",
       "title": "Resistors in Parallel",
-      "url": "https://atcoder.jp/contests/abc138/tasks/abc138_b"
+      "url": "https://atcoder.jp/contests/abc138/tasks/abc138_b",
+      "directory": {
+        "path": "b",
+        "testdir": "tests",
+        "submit": "Main.java"
+      }
     },
     {
       "id": "abc138_c",
