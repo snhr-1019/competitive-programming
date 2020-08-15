@@ -4,23 +4,26 @@ c = [int(i) for i in input().split()]
 
 checked = [False] * n
 
-ans = 0
+ans = -10 ** 10
 for i in range(n):
     if checked[i]:
         continue
-    tmp = []
-    next = i
-    while not checked[next]:
-        checked[next] = True
-        tmp.append(c[next])
-        next = p[next]
+    loop = []
+    nxt = i
+    while not checked[nxt]:
+        checked[nxt] = True
+        loop.append(c[nxt])
+        nxt = p[nxt]
 
-    # 最大値を求める処理
-    tmp_max = k // len(tmp) * sum(tmp)
-    tmp_max2 = 0
-    k = k - k // len(tmp)
-    for j in range(len(tmp)):
-        tmp_max2 = max(sum(tmp[i:k]), tmp_max2)
-    ans = max(ans, tmp_max + tmp_max2)
+    L = len(loop)
+
+    for start in range(L):
+        s = 0
+        dist = 0
+        for end in range(start+1, start+L):
+            dist += 1
+            end %= L
+            s += loop[end]
+            ans = max(ans, s + max(0, sum(loop) * (k - dist) // L))
 
 print(ans)
