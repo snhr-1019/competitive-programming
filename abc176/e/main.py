@@ -2,7 +2,7 @@ h, w, m = map(int, input().split())
 h_cnt = [0] * h
 w_cnt = [0] * w
 
-bomb_list = {}
+bomb_set = set()
 
 for i in range(m):
     h_, w_ = map(int, input().split())
@@ -10,7 +10,7 @@ for i in range(m):
     w_ -= 1
     h_cnt[h_] += 1
     w_cnt[w_] += 1
-    bomb_list[h_][w_] = 1
+    bomb_set.add((h_, w_))
 
 max_h = max(h_cnt)
 max_h_idx = []
@@ -27,7 +27,7 @@ for i in range(w):
 minus = -1
 for i in max_h_idx:
     for j in max_w_idx:
-        if bomb_list.get(i).get(j) != 1:
+        if (i, j) not in bomb_set:
             print(max_h + max_w)
             exit()
 print(max_h + max_w - 1)
