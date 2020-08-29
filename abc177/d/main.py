@@ -1,33 +1,40 @@
+import sys
+sys.setrecursionlimit(10**9)
+
 n, m = map(int, input().split())
 
-friend_list = [set()]
-input_list = []
+root = [-1] * n
+
+
+def r(x):
+    if root[x] < 0:
+        return x
+    else:
+        root[x] = r(root[x])
+        return root[x]
+
+
+def unite(x, y):
+    x = r(x)
+    y = r(y)
+    if x == y:
+        return
+    root[x] += root[y]
+    root[y] = x
+
+
+def size(x):
+    return -1 * root[r(x)]
+
 
 for i in range(m):
     a, b = map(int, input().split())
-    input_list.append(sorted([a, b]))
-
-input_list.sort()
-
-for inp in input_list:
-    found = False
-    for friend_set in friend_list:
-        if inp[0] in friend_set:
-            friend_set.add(inp[1])
-            found = True
-            break
-        # elif b in friend_set:
-        #     friend_set.add(a)
-        #     found = True
-        #     break
-    if not found:
-        friend_set = set()
-        friend_set.add(inp[0])
-        friend_set.add(inp[1])
-        friend_list.append(friend_set)
+    a -= 1
+    b -= 1
+    unite(a, b)
 
 ans = 0
-for friend_set in friend_list:
-    ans = max(len(friend_set), ans)
+for i in range(n):
+    ans = max(ans, size(i))
 
 print(ans)
