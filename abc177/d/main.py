@@ -1,40 +1,44 @@
 import sys
-sys.setrecursionlimit(10**9)
+
+sys.setrecursionlimit(10 ** 9)
 
 n, m = map(int, input().split())
 
-root = [-1] * n
+
+class UnionFind:
+    def __init__(self, n):
+        self.n = n
+        self.root = [-1] * n
+
+    def find(self, x):
+        if self.root[x] < 0:
+            return x
+        else:
+            self.root[x] = self.find(self.root[x])
+            return self.root[x]
+
+    def unite(self, x, y):
+        x = self.find(x)
+        y = self.find(y)
+        if x == y:
+            return
+        self.root[x] += self.root[y]
+        self.root[y] = x
+
+    def size(self, x):
+        return -1 * self.root[self.find(x)]
 
 
-def r(x):
-    if root[x] < 0:
-        return x
-    else:
-        root[x] = r(root[x])
-        return root[x]
-
-
-def unite(x, y):
-    x = r(x)
-    y = r(y)
-    if x == y:
-        return
-    root[x] += root[y]
-    root[y] = x
-
-
-def size(x):
-    return -1 * root[r(x)]
-
+union_find = UnionFind(n)
 
 for i in range(m):
     a, b = map(int, input().split())
     a -= 1
     b -= 1
-    unite(a, b)
+    union_find.unite(a, b)
 
 ans = 0
 for i in range(n):
-    ans = max(ans, size(i))
+    ans = max(ans, union_find.size(i))
 
 print(ans)
