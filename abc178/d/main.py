@@ -1,20 +1,9 @@
-
-def dfs(n, rest):
-    mod = 1000000007
-    global S
-    if rest == 0:
-        return 1
-    elif rest < 0:
-        return 0
-
-    ans = dfs(3, rest - 3)
-
-    for i in range(4, rest + 1):
-        ans += dfs(i, rest - i)
-        ans %= mod
-    return ans
-
-
 S = int(input())
-
-print(dfs(0, S))
+mod = 10 ** 9 + 7
+dp = [0] * (S + 1)
+dp[0] = 1
+for i in range(1, S + 1):
+    for j in range(0, i - 3 + 1):
+        dp[i] += dp[j]
+        dp[i] %= mod
+print(dp[S])
