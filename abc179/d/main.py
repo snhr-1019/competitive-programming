@@ -1,6 +1,8 @@
 N, K = map(int, input().split())
 dp = [0] * N
 dp[0] = 1
+dp_sum = [0] * N
+dp_sum[0] = 1
 L = [0] * K
 R = [0] * K
 mod = 998244353
@@ -14,16 +16,11 @@ for i in range(1, N):
     # マスiにたどり着くためのパターン数を数える
     cnt = 0
     for j in range(K):
-        start = max(0, i-R[j])
-        end = max(0, i-L[j])
-        cnt += sum(dp[start:end]) % mod
+        start = max(0, i - R[j])
+        end = i - L[j]
+        cnt += (dp_sum[end] - dp_sum[start - 1]) % mod
         cnt %= mod
-        # for k in range(L[j], R[j] + 1):
-        #     if i - k >= 0:
-        #         cnt += dp[i - k]
-        #         cnt %= 998244353
-        #     else:
-        #         continue
     dp[i] = cnt
+    dp_sum[i] = dp_sum[i - 1] + cnt
 
 print(dp[N - 1])
