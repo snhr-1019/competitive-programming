@@ -1,51 +1,33 @@
-import itertools
+from itertools import permutations
 
-S1 = input()
-S2 = input()
-S3 = input()
+S = [input() for _ in range(3)]
+chars = set(''.join(S))
 
-n = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+if len(chars) > 10:
+    print("UNSOLVABLE")
+    exit()
 
-for v in itertools.permutations(n, 10):
-    lv = list(v)
-    chars = dict()
+chars = list(chars)
 
-    i1 = 0
-    for i, s in enumerate(S1[::-1]):
-        if not chars.get(s):
-            if not lv:
-                print("UNSOLVABLE")
-                exit()
-            chars[s] = lv.pop()
+idx = {c: i for i, c in enumerate(chars)}
 
-        i1 += chars[s] * 10 ** i
+for perm in permutations(range(10)):
+    num = []
 
-    i2 = 0
-    for i, s in enumerate(S2[::-1]):
-        if not chars.get(s):
-            if not lv:
-                print("UNSOLVABLE")
-                exit()
-            chars[s] = lv.pop()
+    # 3種類の文字列のループ
+    for s in S:
+        n = 0
+        # 各文字列について、最初の文字が0の場合は不適
+        if perm[idx[s[0]]] == 0:
+            break
 
-        i2 += chars[s] * 10 ** i
+        # 各文字列の1文字ずつ見て、足してく
+        for c in s:
+            n = 10 * n + perm[idx[c]]
+        num.append(n)
 
-    i3 = 0
-    for i, s in enumerate(S3[::-1]):
-        if not chars.get(s):
-            if not lv:
-                print("UNSOLVABLE")
-                exit()
-            chars[s] = lv.pop()
-
-        i3 += chars[s] * 10 ** i
-
-    if chars[S1[0]] == 0 or chars[S2[0]] == 0 or chars[S3[0]] == 0:
-        continue
-
-    if i1 + i2 == i3:
-        print(str(i1) + "\n" + str(i2) + "\n" + str(i3))
+    if len(num) == 3 and num[0] + num[1] == num[2]:
+        print(*num, sep="\n")
         exit()
 
 print("UNSOLVABLE")
-
