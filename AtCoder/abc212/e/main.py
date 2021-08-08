@@ -1,18 +1,24 @@
 N, M, K = map(int, input().split())
-paths = [set() for i in range(N)]
+paths = []
 for i in range(M):
-    U, V = map(int, input().split())
-    U -= 1
-    V -= 1
-    paths[U].add(V)
-    paths[V].add(U)
+    paths.append(list(map(lambda x: int(x) - 1, input().split())))
 
-a = [[0] * N for i in range(K + 1)]
-a[0][0] = 1
-for k in range(K):
-    for n in range(N):
-        for nn in range(N):
-            if n != nn and nn not in paths[n]:
-                a[k + 1][nn] += a[k][n]
-                a[k + 1][nn] %= 998244353
-print(a[K][0])
+dp = [[0] * N for i in range(K + 1)]
+dp[0][0] = 1
+for i in range(K):
+    # 合計を先に計算し、後で不要な経路の数を引く
+    s = sum(dp[i])
+
+    # 同じノードの経路は引く
+    for j in range(N):
+        dp[i + 1][j] = s - dp[i][j]
+
+    # 道がないところの経路数を引く
+    for u, v in paths:
+        dp[i + 1][u] -= dp[i][v]
+        dp[i + 1][v] -= dp[i][u]
+
+    for j in range(N):
+        dp[i + 1][j] %= 998244353
+
+print(dp[K][0])
