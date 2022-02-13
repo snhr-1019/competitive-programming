@@ -1,13 +1,9 @@
-N, K = map(int, input().split())
+n, k = map(int, input().split())
 a = list(map(int, input().split()))
-rank = {v: i for i, v in enumerate(sorted(a))}
-base = K // N
-r = K % N
+a_dict = {x: i for i, x in enumerate(sorted(a))}
 
-ans = []
-for ai in a:
-    if rank[ai] <= r:
-        ans.append(base + 1)
-    else:
-        ans.append(base)
-print(*ans)
+base = k // n
+rest = k % n
+for i in range(n):
+    r = 1 if a_dict[a[i]] < rest else 0
+    print(base + r)
