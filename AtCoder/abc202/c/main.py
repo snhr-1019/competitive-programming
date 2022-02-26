@@ -1,24 +1,17 @@
-N = int(input())
-A = list(map(int, input().split()))
-B = list(map(int, input().split()))
-C = list(map(lambda x: int(x) - 1, input().split()))
+n = int(input())
+a = list(map(int, input().split()))
+b = list(map(int, input().split()))
+c = list(map(lambda x: int(x) - 1, input().split()))
 
-B_m = {}
-for i in range(N):
-    B_m.setdefault(B[i], [])
-    B_m[B[i]].append(i)
+inv_a = [[] for _ in range(n + 1)]
+for i in range(n):
+    inv_a[a[i]].append(i)
 
-C_m = {}
-for i in range(N):
-    C_m.setdefault(C[i], [])
-    C_m[C[i]].append(i)
+inv_c = [[] for _ in range(n + 1)]
+for i in range(n):
+    inv_c[c[i]].append(i)
 
 ans = 0
-for a in A:
-    if not B_m.get(a):
-        continue
-    for b in B_m[a]:
-        if not C_m.get(b):
-            continue
-        ans += len(C_m[b])
+for i in range(n):
+    ans += len(inv_a[b[i]]) * len(inv_c[i])
 print(ans)
