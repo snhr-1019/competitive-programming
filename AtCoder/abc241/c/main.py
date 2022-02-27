@@ -3,44 +3,23 @@ s = []
 for i in range(n):
     s.append(list(input()))
 
-# 横方向でできるか
-ans = False
+dx = [1, 0, 1, 1]
+dy = [0, 1, 1, -1]
+
 for i in range(n):
-    cnt = 0
-    dot_cnt = 0
     for j in range(n):
-        cnt += 1
+        for k in range(4):
+            dot_cnt = 0
+            for l in range(6):
+                x = i + dx[k] * l
+                y = j + dy[k] * l
+                if not (0 <= x < n and 0 <= y < n):
+                    dot_cnt = 100
+                    break
+                if s[i + dx[k] * l][j + dy[k] * l] == '.':
+                    dot_cnt += 1
 
-        if s[i][j] == '.':
-            dot_cnt += 1
-
-        if cnt > 6:
-            if s[i][j - 7] == '.':
-                dot_cnt -= 1
-            cnt -= 1
-
-        if cnt == 6 and dot_cnt <= 2:
-            ans = True
-
-# 縦方向でできるか
-for j in range(n):
-    cnt = 0
-    dot_cnt = 0
-    for i in range(n):
-        cnt += 1
-
-        if s[i][j] == '.':
-            dot_cnt += 1
-
-        if cnt > 6:
-            if s[i - 7][j] == '.':
-                dot_cnt -= 1
-            cnt -= 1
-
-        if cnt == 6 and dot_cnt <= 2:
-            ans = True
-
-if ans:
-    print("Yes")
-else:
-    print("No")
+            if dot_cnt <= 2:
+                print("Yes")
+                exit()
+print("No")
