@@ -13,7 +13,7 @@
       "directory": {
         "path": "a",
         "testdir": "tests",
-        "submit": "Main.java"
+        "submit": "main.py"
       }
     },
     {
@@ -24,32 +24,52 @@
       "directory": {
         "path": "b",
         "testdir": "tests",
-        "submit": "Main.java"
+        "submit": "main.py"
       }
     },
     {
       "id": "abc156_c",
       "label": "C",
       "title": "Rally",
-      "url": "https://atcoder.jp/contests/abc156/tasks/abc156_c"
+      "url": "https://atcoder.jp/contests/abc156/tasks/abc156_c",
+      "directory": {
+        "path": "c",
+        "testdir": "tests",
+        "submit": "main.py"
+      }
     },
     {
       "id": "abc156_d",
       "label": "D",
       "title": "Bouquet",
-      "url": "https://atcoder.jp/contests/abc156/tasks/abc156_d"
+      "url": "https://atcoder.jp/contests/abc156/tasks/abc156_d",
+      "directory": {
+        "path": "d",
+        "testdir": "tests",
+        "submit": "main.py"
+      }
     },
     {
       "id": "abc156_e",
       "label": "E",
       "title": "Roaming",
-      "url": "https://atcoder.jp/contests/abc156/tasks/abc156_e"
+      "url": "https://atcoder.jp/contests/abc156/tasks/abc156_e",
+      "directory": {
+        "path": "e",
+        "testdir": "tests",
+        "submit": "main.py"
+      }
     },
     {
       "id": "abc156_f",
       "label": "F",
       "title": "Modularness",
-      "url": "https://atcoder.jp/contests/abc156/tasks/abc156_f"
+      "url": "https://atcoder.jp/contests/abc156/tasks/abc156_f",
+      "directory": {
+        "path": "f",
+        "testdir": "tests",
+        "submit": "main.py"
+      }
     }
   ]
 }
