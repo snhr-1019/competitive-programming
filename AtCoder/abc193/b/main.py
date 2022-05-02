@@ -1,17 +1,15 @@
 n = int(input())
-A = []
-B = []
+APX = []
 for i in range(n):
-    a, b = map(int, input().split())
-    A.append(a)
-    B.append(b)
+    APX.append(list(map(int, input().split())))
+APX.sort()
 
-cand = []
+INF = 10 ** 9 + 10
+ans = INF
 for i in range(n):
-    for j in range(n):
-        if i == j:
-            cand.append(A[i] + B[j])
-        else:
-            cand.append(max(A[i], B[j]))
-cand.sort()
-print(cand[0])
+    if APX[i][2] - APX[i][0] > 0:
+        ans = min(ans, APX[i][1])
+if ans == INF:
+    print(-1)
+else:
+    print(ans)
