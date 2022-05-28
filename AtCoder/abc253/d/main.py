@@ -1,7 +1,10 @@
+import math
+
 n, a, b = map(int, input().split())
 
-if a > b:
-    a, b = b, a
+
+def lcm(a, b):
+    return a * b // math.gcd(a, b)
 
 
 def calc(k):
@@ -14,11 +17,10 @@ ans = n * (n + 1) // 2
 ma = calc(a)
 ans -= ma
 
-if a != b and b % a != 0:
-    mb = calc(b)
-    ans -= mb
+mb = calc(b)
+ans -= mb
 
-    mab = calc(a * b)
-    ans += mab
-
+g = lcm(a, b)
+mab = calc(g)
+ans += mab
 print(ans)
