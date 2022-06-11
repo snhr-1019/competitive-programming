@@ -13,18 +13,18 @@ for i in range(m):
 def solve(x, k):
     ans = x
     que = deque()
-    que.append(x)
-    visited = [False] * (n + 1)
-    visited[x] = True
-    while que and k > 0:
-        cur = que.popleft()
+    que.append((x, 0))
+    visited = set()
+    visited.add(x)
+    while que:
+        cur, cur_d = que.popleft()
+        if cur_d >= k:
+            continue
         for nxt in edges[cur]:
-            if visited[nxt]:
-                continue
-            que.append(nxt)
-            visited[nxt] = True
-            ans += nxt
-        k -= 1
+            if nxt not in visited:
+                que.append((nxt, cur_d + 1))
+                visited.add(nxt)
+                ans += nxt
     print(ans)
 
 
