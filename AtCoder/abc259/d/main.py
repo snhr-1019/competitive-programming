@@ -65,11 +65,12 @@ def is_overlap(xyr_1, xyr_2):
     y2 = xyr_2[1]
     d2 = xyr_2[2]
 
-    if x1 == x2 and y1 == y2:
-        return d1 == d2
-
     d_2 = dist_2(x1, y1, x2, y2)
-    return (d1 + d2) ** 2 <= d_2
+    if d_2 < (d1 - d2) ** 2:
+        return False
+    if d_2 > (d1 + d2) ** 2:
+        return False
+    return True
 
 
 n = int(input())
@@ -95,11 +96,3 @@ if uf.same(s, t):
     print("Yes")
 else:
     print("No")
-
-"""
-3
-0 3 0 3
-0 0 3
-0 0 2
-0 0 3
-"""

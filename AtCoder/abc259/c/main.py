@@ -1,46 +1,38 @@
 s = input()
 t = input()
 
-s_cnt = []
-t_cnt = []
 
-i = 0
-j = 0
+# Run Length Encoding
+def rle(s):
+    rle = []
+    cnt = 1
+    for i in range(1, len(s)):
+        if s[i - 1] != s[i]:
+            rle.append((s[i - 1], cnt))
+            cnt = 0
+        cnt += 1
+    rle.append((s[-1], cnt))
+    return rle
 
-if s == t:
-    print("Yes")
-    exit()
 
-if set(s) != set(t):
+rle_s = rle(s)
+rle_t = rle(t)
+
+if len(rle_s) != len(rle_t):
     print("No")
     exit()
 
-while i < len(s):
-    s_char = s[i]
-    s_cnt = 0
-    while i < len(s) and s[i] == s_char:
-        i += 1
-        s_cnt += 1
-
-    if j >= len(t):
+for i in range(len(rle_s)):
+    if rle_s[i][0] != rle_t[i][0]:
         print("No")
         exit()
 
-    t_char = t[j]
-    t_cnt = 0
-    while j < len(t) and t[j] == t_char:
-        j += 1
-        t_cnt += 1
-
-    if s_char != t_char:
+    if rle_s[i][1] > rle_t[i][1]:
         print("No")
         exit()
 
-    if s_char > t_char or (s_cnt == 1 and s_cnt < t_cnt):
+    if rle_s[i][1] == 1 and rle_s[i][1] < rle_t[i][1]:
         print("No")
         exit()
 
-if j != len(t):
-    print("No")
-else:
-    print("Yes")
+print("Yes")
