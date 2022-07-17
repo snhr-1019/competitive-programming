@@ -132,30 +132,25 @@ class SortedSet(Generic[T]):
         return ans
 
 
+###############################
+
 n, k = map(int, input().split())
 p = list(map(int, input().split()))
 
 ss = SortedSet()
-nxt_list = [-1] * (n + 1)
-cnt = [-1] * (n + 1)
+yama = [[] for _ in range(n + 1)]
 turn = [-1] * (n + 1)
+
 for i in range(n):
     nxt = ss.gt(p[i])
     if nxt:
-        ss.add(p[i])
         ss.discard(nxt)
-        nxt_list[p[i]] = nxt
-        cnt[p[i]] = cnt[nxt] + 1
-    else:
-        ss.add(p[i])
-        cnt[p[i]] = 1
-    if cnt[p[i]] == k:
-        cur = p[i]
-        while True:
-            ss.discard(cur)
-            turn[cur] = i + 1
-            cur = nxt_list[cur]
-            if cur == -1:
-                break
+        yama[p[i]] = yama[nxt]
+    ss.add(p[i])
+    yama[p[i]].append(p[i])
+    if len(yama[p[i]]) == k:
+        ss.discard(p[i])
+        for j in yama[p[i]]:
+            turn[j] = i + 1
 
 print(*turn[1:], sep="\n")
