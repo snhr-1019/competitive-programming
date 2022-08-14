@@ -82,30 +82,21 @@ for i in range(e):
     # イベントが起きない電線は最後まで生きてる
     if i not in set_x:
         uv_ = uv[i]
-        uf.union(uv_[0], uv_[1])
+        if not uf.same(uv_[0], uv_[1]):
+            uf.union(uv_[0], uv_[1])
 
-cur = 0
-is_ok = [False] * n
-for c in range(n):
-    for el in range(n, n + m):
-        if uf.same(c, el) and not is_ok[c]:
-            cur += 1
-            is_ok[c] = True
-ans.append(cur)
+# 発電所同士はすべて最初からつないでしまう
+for i in range(n, n + m - 1):
+    uf.union(i, n + m - 1)
+
+ans.append(uf.size(n + m - 1) - m)
 
 for ev in range(q):
     # イベントによって復活する電線
     uv_ = uv[X[ev]]
-    uf.union(uv_[0], uv_[1])
-
-    for c in range(n):
-        if is_ok[c]:
-            continue
-        for el in range(n, n + m):
-            if uf.same(c, el) and not is_ok[c]:
-                cur += 1
-                is_ok[c] = True
-    ans.append(cur)
+    if not uf.same(uv_[0], uv_[1]):
+        uf.union(uv_[0], uv_[1])
+    ans.append(uf.size(n + m - 1) - m)
 
 ans.reverse()
 print(*ans[1:], sep="\n")
