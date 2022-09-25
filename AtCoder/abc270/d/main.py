@@ -1,19 +1,11 @@
-from bisect import bisect_right
-
-n, k = map(int, input().split())
+N, K = map(int, input().split())
 a = list(map(int, input().split()))
-sa = set(a)
-ans = 0
-while n > 0:
-    t = bisect_right(a, n) - 1
-    ans += a[t]
-    n -= a[t]
+dp = [0] * (N + 1)
+dp[1] = 1
+for n in range(2, N + 1):
+    for i in range(K):
+        if n - a[i] < 0:
+            continue
+        dp[n] = max(dp[n], n - dp[n - a[i]])
 
-    if n <= 0:
-        break
-
-    ao = bisect_right(a, n) - 1
-    if n - a[ao] in sa:
-        ao -= 1
-    n -= a[ao]
-print(ans)
+print(dp[N])
