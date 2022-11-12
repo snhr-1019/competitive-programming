@@ -2,12 +2,12 @@ n, m = map(int, input().split())
 a = sorted(list(map(int, input().split())))
 s = sum(a)
 a *= 2
-
+a.append(m)
 mx = a[0]
 x = a[0]
 sum_x = a[0]
 
-for i in range(1, 2 * n+1):
+for i in range(1, 2 * n + 1):
     if a[i] == x or a[i] == (x + 1) % m:
         # i番目のカードが出せる場合
         sum_x += a[i]
