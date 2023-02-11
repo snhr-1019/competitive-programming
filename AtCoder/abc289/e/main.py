@@ -21,7 +21,7 @@ def solve():
     que.append((0, n - 1))
 
     while que:
-        cur = que.pop()
+        cur = que.popleft()
         t_cur = cur[0]
         a_cur = cur[1]
 
