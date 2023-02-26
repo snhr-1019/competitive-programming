@@ -1,51 +1,33 @@
 from collections import deque
 
 n, m = map(int, input().split())
-forward_edges = [[] for _ in range(n)]
-reverse_edges = [[] for _ in range(n)]
-
+edges = [[] for _ in range(n)]
+indeg = [0] * n
 for _ in range(m):
     x, y = map(int, input().split())
     x -= 1
     y -= 1
-    forward_edges[x].append(y)
-    reverse_edges[y].append(x)
+    edges[x].append(y)
+    indeg[y] += 1
 
+que = deque()
+for i in range(n):
+    if indeg[i] == 0:
+        que.append(i)
 
-def dfs(start, rev=False):
-    dist = [-1] * n
-    dist[start] = 0
-    max_dist = {'node': start, 'dist': 0}
+ans = [-1] * n
+cnt = 0
+while que:
+    if len(que) > 1:
+        print("No")
+        exit()
+    cur = que.popleft()
+    cnt += 1
+    ans[cur] = cnt
+    for nxt in edges[cur]:
+        indeg[nxt] -= 1
+        if indeg[nxt] == 0:
+            que.append(nxt)
 
-    if rev:
-        edges = reverse_edges
-    else:
-        edges = forward_edges
-
-    stack = deque()
-    stack.append((start, -1))
-    while stack:
-        cur, prev = stack.pop()
-        for nxt in edges[cur]:
-            if nxt == prev:
-                continue
-            dist[nxt] = dist[cur] + 1
-            if max_dist['dist'] < dist[nxt]:
-                max_dist['dist'] = dist[nxt]
-                max_dist['node'] = nxt
-            stack.append((nxt, cur))
-    return max_dist, dist
-
-
-max_dist, dist = dfs(0, False)
-max_dist, dist = dfs(max_dist['node'], True)
-
-if max_dist['dist'] == n - 1:
-    print("Yes")
-
-    ans = [0] * n
-    for i in range(n):
-        ans[i] = n - dist[i]
-    print(*ans)
-else:
-    print("No")
+print("Yes")
+print(*ans)
