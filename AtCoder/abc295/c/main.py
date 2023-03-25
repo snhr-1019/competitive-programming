@@ -8,6 +8,6 @@ for ai in a:
     cnt[ai] += 1
 
 ans = 0
-for k, v in cnt.items():
+for v in cnt.values():
     ans += v // 2
 print(ans)
