@@ -2,13 +2,12 @@ n = int(input())
 s = input()
 t = input()
 
-for i in range(n):
-    if s[i] == t[i]:
-        continue
-    if {s[i], t[i]} == {'1', 'l'}:
-        continue
-    if {s[i], t[i]} == {'0', 'o'}:
-        continue
+
+def similar(a, b):
+    return a == b or {a, b} == {'1', 'l'} or {a, b} == {'0', 'o'}
+
+
+if all(similar(s[i], t[i]) for i in range(n)):
+    print("Yes")
+else:
     print("No")
-    exit()
-print("Yes")
