@@ -155,37 +155,35 @@ class SortedMultiset(Generic[T]):
 
 ##################
 n, k, q = map(int, input().split())
-ss = SortedMultiset()
 a = [0] * n
 ans = 0
-for i in range(k):
-    xi, yi = map(int, input().split())
-    xi -= 1
-    ss.add(yi)
-    a[xi] = yi
+upper = SortedMultiset(a[:k])
+lower = SortedMultiset(a[k:])
 
-    ans += yi
-    print(ans)
-
-for i in range(k, q):
+for i in range(q):
     xi, yi = map(int, input().split())
     xi -= 1
     prev = a[xi]
     a[xi] = yi
 
-    # 削除されるものが上位層の場合はansに影響あり
-    if prev >= ss[~(k - 1)]:
-        ans -= prev
-        if len(ss) >= k:
-            ans += ss[~k]
-
-    if prev != 0:
-        ss.discard(prev)
-
-    # 追加されるものが上位層の場合はansに影響あり
-    if yi >= ss[~(k - 1)]:
-        ans -= ss[~(k - 1)]
+    # 新しい値の追加
+    if yi > upper[0]:
         ans += yi
+        upper.add(yi)
 
-    ss.add(yi)
+        ans -= upper[0]
+        lower.add(upper.pop(0))
+    else:
+        lower.add(yi)
+
+    # 古い値の削除
+    if prev > lower[-1]:
+        ans -= prev
+        upper.discard(prev)
+
+        ans += lower[-1]
+        upper.add(lower.pop(-1))
+    else:
+        lower.discard(prev)
+
     print(ans)
