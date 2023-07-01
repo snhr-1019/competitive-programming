@@ -1,6 +1,4 @@
-import sys
-
-sys.setrecursionlimit(10 ** 9)
+from collections import deque
 
 h, w = map(int, input().split())
 
@@ -9,25 +7,25 @@ for _ in range(h):
     s.append(['z'] + list(input()) + ['z'])
 s.append(['z'] * (w + 2))
 
-sn = 'snuke'
+target = 'snuke'
 
 d = ((0, 1), (1, 0), (0, -1), (-1, 0))
 
+stack = deque()
 
-def dfs(i, j, k):
-    if visited[i][j] or s[i][j] != sn[k]:
-        return
+visited = [[False] * (w + 2) for _ in range(h + 2)]
+stack.append((1, 1, 0))
+while stack:
+    i, j, k = stack.popleft()
 
-    if (i, j) == (h, w):
-        print('Yes')
-        exit()
+    if visited[i][j] or s[i][j] != target[k]:
+        continue
 
     visited[i][j] = True
     for di, dj in d:
-        dfs(i + di, j + dj, (k + 1) % len(sn))
-    visited[i][j] = False
+        stack.append((i + di, j + dj, (k + 1) % len(target)))
 
-
-visited = [[False] * (w + 2) for _ in range(h + 2)]
-dfs(1, 1, 0)
-print("No")
+if visited[h][w]:
+    print("Yes")
+else:
+    print("No")
