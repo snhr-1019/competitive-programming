@@ -3,7 +3,6 @@ import pypyjit
 pypyjit.set_param('max_unroll_recursion=-1')
 
 import sys
-from collections import deque
 
 sys.setrecursionlimit(10 ** 7)
 
@@ -14,8 +13,6 @@ di = [1, 0, -1, 0]
 dj = [0, 1, 0, -1]
 visited = [[False] * m for _ in range(n)]
 visited[1][1] = True
-que = deque()
-que.append((1, 1))
 
 
 def dfs(i, j):
