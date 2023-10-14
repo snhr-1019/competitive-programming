@@ -30,7 +30,7 @@ for i in range(n):
                 cnt += 1
             else:
                 break
-        if cnt == l:
+        if cnt >= l:
             ans.append(i + 1)
 
 print(len(ans))
